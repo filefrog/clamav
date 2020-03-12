@@ -5,6 +5,9 @@
 name: Virus DB Update
 
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: '45 23 * * *'
 
