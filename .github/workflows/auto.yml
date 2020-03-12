@@ -1,0 +1,19 @@
+# Regularly rebuild the Docker image, even if nothing
+# structurally has changed in the Dockerfile, to get
+# the latest virus definitions from upstream.
+
+name: Virus DB Update
+
+on:
+  schedule:
+    - cron: '45 23 * * *'
+
+jobs:
+  tag-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set auto-build tag for current YYYYMMDD
+        run: |
+          git tag auto-$(date +%Y%m%d-%H%M%S)
+          git push origin --tags
