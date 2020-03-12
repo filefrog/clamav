@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+
+docker build \
+  --build-arg BUILD_DATE="$(date -u --iso-8601)" \
+  --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
+  -t $IMAGE_NAME .
