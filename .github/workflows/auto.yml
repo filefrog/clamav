@@ -10,6 +10,7 @@ on:
 
 jobs:
   tag-and-push:
+    name: Set YYYYMMDD-HHMMSS auto-build tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
