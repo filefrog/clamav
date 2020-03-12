@@ -1,0 +1,49 @@
+#!/bin/sh
+set -eu
+
+trap 'echo "signal caught; shutting down..."; exit 2;' QUIT TERM INT
+seed() {
+  for file in main.cvd daily.cvd bytecode.cvd; do
+    if [[ ! -f /var/lib/clamav/$file ]]; then
+      echo "seeding $file from image..."
+      cp -v /var/lib/clamav.master/$file /var/lib/clamav/$file
+    fi
+  done
+}
+
+command=${1:-clamd}
+case $command in
+seed)
+  seed
+  echo done
+  exit 0
+  ;;
+
+clamd)
+  seed
+  clamd
+  exit $?
+  ;;
+
+freshclam)
+  freshclam -d
+  exit $?
+  ;;
+
+scan)
+  if [[ -z ${2:-} ]]; then
+    clamdscan /
+  else
+    shift
+    clamdscan "$@"
+  fi
+  exit $?
+  ;;
+
+*)
+  exec "$@"
+  exit 4
+  ;;
+
+esac
+exit 0
