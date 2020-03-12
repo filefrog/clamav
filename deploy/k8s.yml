@@ -114,10 +114,6 @@ spec:
             - /clamav
             - clamd
 
-          securityContext:
-            capabilities:
-              add: [SYS_ADMIN, SYS_PTRACE]
-
           readinessProbe:
             periodSeconds: 3
             tcpSocket:
