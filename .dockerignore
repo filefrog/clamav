@@ -1,6 +1,7 @@
 /Dockerfile
 /Makefile
 /README.md
+/CONTRIBUTING.md
 /LICENSE
 /.git
 /.gitignore
