@@ -5,19 +5,16 @@
 name: Virus DB Update
 
 on:
-  push:
-    branches:
-      - master
   schedule:
     - cron: '45 23 * * *'
 
 jobs:
   tag-and-push:
-    name: Set YYYYMMDD-HHMMSS auto-build tag
+    name: Set Auto-Build Tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set auto-build tag for current YYYYMMDD
+      - name: git tag && push
         run: |
-          git tag auto-$(date +%Y%m%d-%H%M%S)
+          git tag auto-$(date +%Y%m%d)
           git push origin --tags
